@@ -56,92 +56,139 @@ const Stars = () => (
 
 function HeroSection() {
   const { t } = useTranslation();
-  const [loaded, setLoaded] = useState(false);
-  useEffect(() => { setTimeout(() => setLoaded(true), 100); }, []);
 
   return (
     <section className="relative min-h-screen hero-bg overflow-hidden flex items-center">
       <Stars />
 
-      {/* Radial glow rings */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <div className="w-[600px] h-[600px] rounded-full border border-saffron/10 animate-spin-slow opacity-40"></div>
-        <div className="absolute w-[400px] h-[400px] rounded-full border border-gold/15" style={{ animation: 'spin 15s linear infinite reverse' }}></div>
-        <div className="absolute w-[200px] h-[200px] rounded-full border border-saffron/20"></div>
+      {/* Radial Rings */}
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden">
+        <div className="w-[320px] h-[320px] sm:w-[500px] sm:h-[500px] lg:w-[600px] lg:h-[600px] rounded-full border border-saffron/10 animate-spin-slow opacity-40"></div>
+
+        <div
+          className="absolute w-[220px] h-[220px] sm:w-[350px] sm:h-[350px] lg:w-[400px] lg:h-[400px] rounded-full border border-gold/15"
+          style={{
+            animation: "spin 15s linear infinite reverse",
+          }}
+        ></div>
+
+        <div className="absolute w-[120px] h-[120px] sm:w-[180px] sm:h-[180px] lg:w-[200px] lg:h-[200px] rounded-full border border-saffron/20"></div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 pt-24 pb-16 grid lg:grid-cols-2 gap-12 items-center relative z-10">
-        {/* Left Text */}
-        <div className={`transition-all duration-1000 ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-28 sm:pt-32 pb-16 grid lg:grid-cols-2 gap-12 lg:gap-16 items-center relative z-10">
+        {/* LEFT CONTENT */}
+        <div className="text-center lg:text-left">
+          {/* TOP BADGE */}
           <div className="inline-flex items-center gap-2 border border-saffron/20 bg-saffron/10 rounded-full px-4 py-2 mb-6">
-            <FiSun className="text-gold text-sm animate-spin-slow" />
-            <span className="text-slate/85 text-sm font-lato tracking-widest uppercase font-semibold">{t('home_trusted_by')}</span>
-            <FiSun className="text-gold text-sm animate-spin-slow" />
+            <FiSun className="text-gold text-xs sm:text-sm animate-spin-slow" />
+
+            <span className="text-slate/85 text-[10px] sm:text-sm font-lato tracking-[0.2em] uppercase font-semibold">
+              {t("home_trusted_by")}
+            </span>
+
+            <FiSun className="text-gold text-xs sm:text-sm animate-spin-slow" />
           </div>
 
-          <h1 className="font-cinzel text-5xl md:text-6xl lg:text-7xl font-black text-slate leading-tight mb-6">
-            {t('home_hero_title_1')}<br />
+          {/* HEADING */}
+          <h1 className="font-cinzel text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-slate leading-[1.1] mb-5">
+            {t("home_hero_title_1")}
+            <br />
+
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-saffron via-gold to-saffron">
-              {t('home_hero_title_2')}
+              {t("home_hero_title_2")}
             </span>
           </h1>
 
-          <p className="text-slate/75 font-lato text-lg leading-relaxed mb-8 max-w-lg">
-            {t('home_hero_desc')}
+          {/* DESCRIPTION */}
+          <p className="text-slate/75 font-lato text-base sm:text-lg leading-relaxed mb-8 max-w-xl mx-auto lg:mx-0">
+            {t("home_hero_desc")}
           </p>
 
-          <div className="flex flex-wrap gap-4 mb-10">
-            <Link to="/booking" className="inline-flex items-center gap-2 bg-gradient-to-r from-saffron to-gold text-slate font-cinzel font-bold px-8 py-4 rounded-full hover:shadow-xl hover:shadow-saffron/15 transition-all duration-300 hover:scale-105 text-base">
-              {t('nav_book_consultation')} <FiArrowRight />
+          {/* BUTTONS */}
+          <div className="flex flex-col sm:flex-row gap-4 mb-10 justify-center lg:justify-start">
+            <Link
+              to="/booking"
+              className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-saffron to-gold text-slate font-cinzel font-bold px-7 sm:px-8 py-3.5 sm:py-4 rounded-full hover:shadow-xl hover:shadow-saffron/15 transition-all duration-300 hover:scale-105 text-sm sm:text-base"
+            >
+              {t("nav_book_consultation")}
+              <FiArrowRight />
             </Link>
-            <Link to="/shop" className="inline-flex items-center gap-2 border border-slate-300 text-slate font-lato font-semibold px-8 py-4 rounded-full hover:border-saffron hover:text-saffron transition-all duration-300 text-base">
-              {t('home_explore_shop')} <FiArrowRight />
+
+            <Link
+              to="/shop"
+              className="inline-flex items-center justify-center gap-2 border border-slate-300 text-slate font-lato font-semibold px-7 sm:px-8 py-3.5 sm:py-4 rounded-full hover:border-saffron hover:text-saffron transition-all duration-300 text-sm sm:text-base"
+            >
+              {t("home_explore_shop")}
+              <FiArrowRight />
             </Link>
           </div>
 
-          {/* Mini stats */}
-          <div className="flex flex-wrap gap-6">
-            {[['50K+', t('home_stat_clients')], ['18+', t('home_stat_years')], ['95%', t('home_stat_accuracy')]].map(([num, label]) => (
+          {/* MINI STATS */}
+          <div className="flex flex-wrap justify-center lg:justify-start gap-6 sm:gap-8">
+            {[
+              ["50K+", t("home_stat_clients")],
+              ["18+", t("home_stat_years")],
+              ["95%", t("home_stat_accuracy")],
+            ].map(([num, label]) => (
               <div key={label} className="text-center">
-                <div className="font-cinzel text-2xl font-bold text-saffron">{num}</div>
-                <div className="text-slate/50 text-xs font-lato font-medium">{label}</div>
+                <div className="font-cinzel text-2xl sm:text-3xl font-bold text-saffron">
+                  {num}
+                </div>
+
+                <div className="text-slate/50 text-[11px] sm:text-xs font-lato font-medium uppercase tracking-wide">
+                  {label}
+                </div>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Right: Astrologer Image */}
-        <div className={`flex justify-center transition-all duration-1000 delay-300 ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
+        {/* RIGHT IMAGE */}
+        <div className="flex justify-center">
           <div className="relative">
-            {/* Glow behind image */}
+            {/* Glow */}
             <div className="absolute inset-0 rounded-full bg-gradient-to-br from-saffron/15 to-gold/15 blur-3xl scale-110 animate-glow-pulse"></div>
-            {/* Decorative ring */}
+
+            {/* Ring */}
             <div className="absolute inset-0 rounded-full border-2 border-dashed border-saffron/20 animate-spin-slow scale-110"></div>
 
-            <div className="relative w-72 h-72 md:w-96 md:h-96 rounded-full overflow-hidden border-4 border-saffron/20 shadow-xl">
+            {/* IMAGE */}
+            <div className="relative w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 rounded-full overflow-hidden border-4 border-saffron/20 shadow-xl">
               <img
                 src="/images/Vishal_Tarte_Img.png"
                 alt="Pandit Vishal Tarte"
                 className="w-full h-full object-cover object-top"
-                onError={e => { e.target.style.background = 'linear-gradient(135deg, #FAF6F0, #F16F45)'; e.target.style.display = 'flex'; }}
               />
             </div>
 
-            {/* Floating badges */}
-            <div className="absolute -top-4 -right-4 bg-cream border border-gold/30 rounded-2xl px-4 py-2 text-center shadow-md animate-float flex flex-col items-center">
-              <FaStar className="text-gold text-base mb-1" />
-              <div className="text-slate text-xs font-bold">{t('home_badge_stars')}</div>
+            {/* TOP BADGE */}
+            <div className="absolute top-0 right-0 sm:-top-4 sm:-right-4 bg-cream border border-gold/30 rounded-2xl px-3 sm:px-4 py-2 text-center shadow-md animate-float flex flex-col items-center">
+              <FaStar className="text-gold text-sm sm:text-base mb-1" />
+
+              <div className="text-slate text-[10px] sm:text-xs font-bold">
+                {t("home_badge_stars")}
+              </div>
             </div>
-            <div className="absolute -bottom-4 -left-4 bg-cream border border-saffron/30 rounded-2xl px-4 py-2 text-center shadow-md flex flex-col items-center" style={{ animation: 'float 6s ease-in-out 3s infinite' }}>
-              <FaTrophy className="text-saffron text-base mb-1" />
-              <div className="text-slate text-xs font-bold">{t('home_badge_award')}</div>
+
+            {/* BOTTOM BADGE */}
+            <div
+              className="absolute bottom-0 left-0 sm:-bottom-4 sm:-left-4 bg-cream border border-saffron/30 rounded-2xl px-3 sm:px-4 py-2 text-center shadow-md flex flex-col items-center"
+              style={{
+                animation: "float 6s ease-in-out 3s infinite",
+              }}
+            >
+              <FaTrophy className="text-saffron text-sm sm:text-base mb-1" />
+
+              <div className="text-slate text-[10px] sm:text-xs font-bold">
+                {t("home_badge_award")}
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Bottom gradient */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-dawn to-transparent"></div>
+      {/* Bottom Gradient */}
+      <div className="absolute bottom-0 left-0 right-0 h-20 sm:h-32 bg-gradient-to-t from-dawn to-transparent"></div>
     </section>
   );
 }
