@@ -44,6 +44,24 @@ export const services = [
   { id: 4, title: "Numerology Reading", icon: "hash", price: "₹999", description: "Decode your life path, destiny number & hidden patterns guiding your journey.", duration: "45 min", image: "/images/Booking Service.png" },
   { id: 5, title: "Spiritual Healing", icon: "heart", price: "₹1,999", description: "Energy healing, chakra balancing & aura cleansing for mental & physical wellness.", duration: "60 min", image: "/images/Spiritual Item Service.png" },
   { id: 6, title: "Tarot Reading", icon: "layers", price: "₹699", description: "Intuitive tarot guidance for love, career, finance & life decisions.", duration: "30 min", image: "/images/Crystals Service.png" },
+  {
+    id: 7,
+    title: "Career Guidance",
+    icon: "target",
+    price: "₹1,299",
+    description: "Astrological insights for career growth, business success & financial stability.",
+    duration: "45 min",
+    image: "/images/Spiritual Item Service.png"
+  },
+  {
+    id: 8,
+    title: "Relationship Consultation",
+    icon: "heart",
+    price: "₹1,599",
+    description: "Compatibility analysis and guidance for love, marriage & relationships.",
+    duration: "60 min",
+    image: "/images/Spiritual Item Service.png"
+  }
 ];
 
 export const testimonials = [
