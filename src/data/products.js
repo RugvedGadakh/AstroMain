@@ -29,6 +29,7 @@ export const products = [
 ];
 
 export const categories = [
+<<<<<<< HEAD
   { id: "all", label: "All Products", icon: "grid" },
   { id: "gemstones", label: "Gemstones", icon: "gem", subcategories: ["precious", "semi-precious"] },
   { id: "rudraksha", label: "Rudraksha", icon: "disc" },
@@ -44,6 +45,23 @@ export const services = [
   { id: 4, title: "Numerology Reading", icon: "hash", price: "₹999", description: "Decode your life path, destiny number & hidden patterns guiding your journey.", duration: "45 min", image: "/images/Booking Service.png" },
   { id: 5, title: "Spiritual Healing", icon: "heart", price: "₹1,999", description: "Energy healing, chakra balancing & aura cleansing for mental & physical wellness.", duration: "60 min", image: "/images/Spiritual Item Service.png" },
   { id: 6, title: "Tarot Reading", icon: "layers", price: "₹699", description: "Intuitive tarot guidance for love, career, finance & life decisions.", duration: "30 min", image: "/images/Crystals Service.png" },
+=======
+  { id: "all", label: "All Products", icon: "✨" },
+  { id: "gemstones", label: "Gemstones", icon: "💎", subcategories: ["precious", "semi-precious"] },
+  { id: "rudraksha", label: "Rudraksha", icon: "🔮" },
+  { id: "bracelets", label: "Bracelets", icon: "📿" },
+  { id: "crystals", label: "Crystals", icon: "🔷" },
+  { id: "vastu", label: "Vastu Items", icon: "🏛️" },
+];
+
+export const services = [
+  { id: 1, title: "Kundali Analysis", icon: "🌟", price: "₹1,499", description: "Detailed birth chart analysis revealing your destiny, career, marriage & spiritual path.", duration: "60 min", image: "/images/Kundali Service.png" },
+  { id: 2, title: "Gemstone Consultation", icon: "💎", price: "₹799", description: "Personalized gemstone recommendations based on your birth chart & planetary positions.", duration: "30 min", image: "/images/Precious Gemstones Service.png" },
+  { id: 3, title: "Vastu Shastra", icon: "🏛️", price: "₹2,999", description: "Home & office energy audit. Transform spaces into prosperity-attracting environments.", duration: "90 min", image: "/images/Vastu Item Service.png" },
+  { id: 4, title: "Numerology Reading", icon: "🔢", price: "₹999", description: "Decode your life path, destiny number & hidden patterns guiding your journey.", duration: "45 min", image: "/images/Booking Service.png" },
+  { id: 5, title: "Spiritual Healing", icon: "🙏", price: "₹1,999", description: "Energy healing, chakra balancing & aura cleansing for mental & physical wellness.", duration: "60 min", image: "/images/Spiritual Item Service.png" },
+  { id: 6, title: "Tarot Reading", icon: "🃏", price: "₹699", description: "Intuitive tarot guidance for love, career, finance & life decisions.", duration: "30 min", image: "/images/Crystals Service.png" },
+>>>>>>> e19948cce804bcadb5e34f5a43e4189f5d1a03fc
 ];
 
 export const testimonials = [
@@ -55,10 +73,17 @@ export const testimonials = [
 ];
 
 export const stats = [
+<<<<<<< HEAD
   { number: "50,000+", label: "Satisfied Clients", icon: "users" },
   { number: "18+", label: "Years Experience", icon: "calendar" },
   { number: "95%", label: "Accuracy Rate", icon: "target" },
   { number: "4.9★", label: "Average Rating", icon: "trophy" },
+=======
+  { number: "50,000+", label: "Satisfied Clients", icon: "👥" },
+  { number: "18+", label: "Years Experience", icon: "⭐" },
+  { number: "95%", label: "Accuracy Rate", icon: "🎯" },
+  { number: "4.9★", label: "Average Rating", icon: "🏆" },
+>>>>>>> e19948cce804bcadb5e34f5a43e4189f5d1a03fc
 ];
 
 export const timeSlots = [

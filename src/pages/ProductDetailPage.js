@@ -59,7 +59,7 @@ export default function ProductDetailPage() {
           <div>
             <span className="text-saffron text-xs font-lato tracking-widest uppercase bg-saffron/10 border border-saffron/20 px-3 py-1 rounded-full font-semibold">{product.category}</span>
             <h1 className="font-cinzel text-3xl md:text-4xl font-bold text-slate mt-4 mb-3">{product.name}</h1>
-            
+
             <div className="flex items-center gap-3 mb-6">
               <StarRating rating={product.rating} />
               <span className="text-slate/50 text-sm font-lato">({product.reviews} reviews)</span>
@@ -99,7 +99,7 @@ export default function ProductDetailPage() {
                 <button onClick={() => setQty(q => q + 1)} className="w-10 h-12 text-slate hover:bg-slate/10 transition-colors text-lg font-bold">+</button>
               </div>
               <button
-                onClick={() => { for(let i = 0; i < qty; i++) addItem(product); }}
+                onClick={() => { for (let i = 0; i < qty; i++) addItem(product); }}
                 className="flex-1 py-3.5 bg-gradient-to-r from-saffron to-gold text-slate font-cinzel font-bold rounded-xl hover:shadow-xl hover:shadow-saffron/15 transition-all duration-300 hover:scale-105 flex items-center justify-center gap-2"
               >
                 Add to Cart <FiShoppingCart />
