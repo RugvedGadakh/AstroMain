@@ -1,9 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { FiPhone, FiMail, FiMapPin, FiClock } from 'react-icons/fi';
 import { FaFacebookF, FaInstagram, FaYoutube, FaWhatsapp } from 'react-icons/fa';
 
 export default function Footer() {
+  const { t } = useTranslation();
+
   return (
     <footer className="relative bg-dusk border-t border-saffron/15 pt-16 pb-8 overflow-hidden">
       {/* Decorative chakra */}
@@ -19,11 +22,11 @@ export default function Footer() {
               <div className="w-10 h-10 rounded-full bg-gradient-to-br from-saffron to-gold flex items-center justify-center text-lg font-cinzel font-bold text-white shadow-sm">ॐ</div>
               <div>
                 <div className="font-cinzel text-lg font-bold text-slate">AstroVision</div>
-                <div className="text-saffron text-xs tracking-widest font-semibold">VEDIC ASTROLOGY</div>
+                <div className="text-saffron text-xs tracking-widest font-semibold">{t('nav_vedic_astrology')}</div>
               </div>
             </div>
             <p className="text-slate/60 text-sm leading-relaxed mb-6">
-              Guiding souls since 2006. Ancient Vedic wisdom meets modern life — for clarity, prosperity & spiritual growth.
+              {t('footer_brand_desc')}
             </p>
             <div className="flex gap-4">
               {[
@@ -39,9 +42,16 @@ export default function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h4 className="font-cinzel text-slate font-bold mb-5 text-sm tracking-widest uppercase">Quick Links</h4>
+            <h4 className="font-cinzel text-slate font-bold mb-5 text-sm tracking-widest uppercase">{t('footer_quick_links')}</h4>
             <ul className="space-y-3">
-              {[['/', 'Home'], ['/services', 'Services'], ['/shop', 'Shop'], ['/booking', 'Book Appointment'], ['/about', 'About Vishal ji'], ['/contact', 'Contact Us']].map(([to, label]) => (
+              {[[
+                '/', t('nav_home')], 
+                ['/services', t('nav_services')], 
+                ['/shop', t('nav_shop')], 
+                ['/booking', t('booking_title')], 
+                ['/about', t('footer_about_vishal')], 
+                ['/contact', t('footer_contact_us')]
+              ].map(([to, label]) => (
                 <li key={to}>
                   <Link to={to} className="text-slate/60 hover:text-saffron text-sm transition-colors duration-300 flex items-center gap-2 font-medium">
                     <span className="w-1 h-1 rounded-full bg-saffron/50"></span>
@@ -54,13 +64,21 @@ export default function Footer() {
 
           {/* Services */}
           <div>
-            <h4 className="font-cinzel text-slate font-bold mb-5 text-sm tracking-widest uppercase">Services</h4>
+            <h4 className="font-cinzel text-slate font-bold mb-5 text-sm tracking-widest uppercase">{t('footer_services')}</h4>
             <ul className="space-y-3">
-              {['Kundali Analysis', 'Horoscope Reading', 'Gemstone Advice', 'Vastu Shastra', 'Numerology', 'Spiritual Healing', 'Tarot Reading'].map(s => (
-                <li key={s}>
+              {[
+                ['Kundali Analysis', t('services.1.title', { defaultValue: 'Kundali Analysis' })],
+                ['Horoscope Reading', t('services.4.title', { defaultValue: 'Horoscope Reading' })],
+                ['Gemstone Advice', t('services.2.title', { defaultValue: 'Gemstone Advice' })],
+                ['Vastu Shastra', t('services.3.title', { defaultValue: 'Vastu Shastra' })],
+                ['Numerology', t('services.4.title', { defaultValue: 'Numerology' })],
+                ['Spiritual Healing', t('services.5.title', { defaultValue: 'Spiritual Healing' })],
+                ['Tarot Reading', t('services.6.title', { defaultValue: 'Tarot Reading' })]
+              ].map(([key, value]) => (
+                <li key={key}>
                   <Link to="/services" className="text-slate/60 hover:text-saffron text-sm transition-colors duration-300 flex items-center gap-2 font-medium">
                     <span className="w-1 h-1 rounded-full bg-gold/50"></span>
-                    {s}
+                    {value}
                   </Link>
                 </li>
               ))}
@@ -69,15 +87,15 @@ export default function Footer() {
 
           {/* Contact */}
           <div>
-            <h4 className="font-cinzel text-slate font-bold mb-5 text-sm tracking-widest uppercase">Contact</h4>
+            <h4 className="font-cinzel text-slate font-bold mb-5 text-sm tracking-widest uppercase">{t('footer_contact')}</h4>
             <div className="space-y-4">
               {[
                 [<FiPhone className="mt-0.5" />, '+91 98765 43210', 'tel:+919876543210'],
                 [<FiMail className="mt-0.5" />, 'info@astrovision.in', 'mailto:info@astrovision.in'],
-                [<FiMapPin className="mt-0.5" />, 'Pune, Maharashtra, India', '#'],
-                [<FiClock className="mt-0.5" />, 'Mon–Sat: 9 AM – 7 PM', '#'],
+                [<FiMapPin className="mt-0.5" />, t('contact_map_city', { defaultValue: 'Pune, Maharashtra, India' }), '#'],
+                [<FiClock className="mt-0.5" />, t('contact_label_hours', { defaultValue: 'Mon–Sat: 9 AM – 7 PM' }), '#'],
               ].map(([icon, text, href]) => (
-                <a key={text} href={href} className="flex items-start gap-3 group">
+                <a key={typeof text === 'string' ? text : 'contact-item'} href={href} className="flex items-start gap-3 group">
                   <span className="text-saffron mt-0.5">{icon}</span>
                   <span className="text-slate/60 text-sm group-hover:text-slate/90 transition-colors font-medium">{text}</span>
                 </a>
@@ -89,10 +107,10 @@ export default function Footer() {
         <div className="section-divider mb-8"></div>
 
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-slate/40 text-xs">© 2024 AstroVision. All Rights Reserved. | Designed with 🙏 & Devotion</p>
+          <p className="text-slate/40 text-xs">{t('footer_rights')}</p>
           <div className="flex gap-6">
-            {['Privacy Policy', 'Terms of Service', 'Refund Policy'].map(t => (
-              <a key={t} href="#" className="text-slate/40 text-xs hover:text-saffron transition-colors">{t}</a>
+            {[[t('footer_privacy'), 'Privacy Policy'], [t('footer_terms'), 'Terms of Service'], [t('footer_refund'), 'Refund Policy']].map(([label, key]) => (
+              <a key={key} href="#" className="text-slate/40 text-xs hover:text-saffron transition-colors">{label}</a>
             ))}
           </div>
         </div>
@@ -100,3 +118,4 @@ export default function Footer() {
     </footer>
   );
 }
+

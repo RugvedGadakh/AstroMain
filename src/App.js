@@ -4,6 +4,7 @@ import { CartProvider } from './context/CartContext';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import { ToastContainer, WhatsAppButton } from './components/UI';
+import Popups from './components/Popups';
 import HomePage from './pages/HomePage';
 import ShopPage from './pages/ShopPage';
 import ProductDetailPage from './pages/ProductDetailPage';
@@ -28,6 +29,7 @@ function Layout({ children }) {
       <Footer />
       <ToastContainer />
       <WhatsAppButton />
+      <Popups />
     </div>
   );
 }

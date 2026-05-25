@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
+import { useTranslation } from 'react-i18next';
 import { FiShoppingCart, FiMenu, FiX } from 'react-icons/fi';
 
 export default function Navbar() {
@@ -8,6 +9,7 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const { count } = useCart();
   const location = useLocation();
+  const { t, i18n } = useTranslation();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -18,12 +20,12 @@ export default function Navbar() {
   useEffect(() => { setMenuOpen(false); }, [location]);
 
   const navLinks = [
-    { to: '/', label: 'Home' },
-    { to: '/services', label: 'Services' },
-    { to: '/shop', label: 'Shop' },
-    { to: '/booking', label: 'Book Now' },
-    { to: '/about', label: 'About' },
-    { to: '/contact', label: 'Contact' },
+    { to: '/', label: t('nav_home') },
+    { to: '/services', label: t('nav_services') },
+    { to: '/shop', label: t('nav_shop') },
+    { to: '/booking', label: t('nav_book_now') },
+    { to: '/about', label: t('nav_about') },
+    { to: '/contact', label: t('nav_contact') },
   ];
 
   return (
@@ -37,7 +39,7 @@ export default function Navbar() {
             </div>
             <div>
               <div className="font-cinzel text-lg font-bold text-slate leading-none">AstroVision</div>
-              <div className="text-saffron text-xs font-lato tracking-widest font-semibold">VEDIC ASTROLOGY</div>
+              <div className="text-saffron text-xs font-lato tracking-widest font-semibold">{t('nav_vedic_astrology')}</div>
             </div>
           </Link>
 
@@ -56,7 +58,28 @@ export default function Navbar() {
           </div>
 
           {/* Right Actions */}
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2 sm:gap-4">
+            {/* Language Selector Toggle */}
+            <div className="flex items-center gap-0.5 bg-slate/5 border border-slate-300 rounded-full p-0.5">
+              {[
+                { code: 'en', label: 'EN' },
+                { code: 'hi', label: 'हिं' },
+                { code: 'mr', label: 'मरा' }
+              ].map(lang => (
+                <button
+                  key={lang.code}
+                  onClick={() => i18n.changeLanguage(lang.code)}
+                  className={`text-[10px] sm:text-xs px-2 sm:px-2.5 py-1 rounded-full font-bold font-lato transition-all ${
+                    (i18n.language || 'en').startsWith(lang.code)
+                      ? 'bg-saffron text-white shadow-sm'
+                      : 'text-slate/60 hover:text-saffron'
+                  }`}
+                >
+                  {lang.label}
+                </button>
+              ))}
+            </div>
+
             <Link to="/cart" className="relative group">
               <div className="w-10 h-10 rounded-full border border-slate-300 flex items-center justify-center text-slate/80 hover:border-saffron hover:text-saffron transition-all duration-300">
                 <FiShoppingCart className="text-lg" />
@@ -68,7 +91,7 @@ export default function Navbar() {
               )}
             </Link>
             <Link to="/booking" className="hidden md:block bg-gradient-to-r from-saffron to-gold text-slate font-cinzel font-bold text-sm px-5 py-2.5 rounded-full hover:shadow-lg hover:shadow-saffron/20 transition-all duration-300 hover:scale-105">
-              Book Now
+              {t('nav_book_now')}
             </Link>
             {/* Mobile Menu Toggle */}
             <button onClick={() => setMenuOpen(!menuOpen)} className="md:hidden text-slate text-xl p-2 flex items-center justify-center">
@@ -91,10 +114,11 @@ export default function Navbar() {
             </Link>
           ))}
           <Link to="/booking" className="mt-4 bg-gradient-to-r from-saffron to-gold text-slate font-cinzel font-bold text-lg px-8 py-3 rounded-full shadow-md">
-            Book Consultation
+            {t('nav_book_consultation')}
           </Link>
         </div>
       </div>
     </>
   );
 }
+

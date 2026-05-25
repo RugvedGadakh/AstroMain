@@ -1,19 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { stats } from '../data/products';
 import { SectionTitle } from '../components/UI';
 import { FiBookOpen, FiAward, FiGlobe, FiHome, FiUsers, FiCalendar, FiTarget, FiSun } from 'react-icons/fi';
 import { FaGem, FaTrophy } from 'react-icons/fa';
-
-const achievements = [
-  { year: '2006', title: 'Began Vedic studies under Guru Pandit Raghunath Shastri', icon: <FiBookOpen className="text-saffron text-2xl mx-auto" /> },
-  { year: '2009', title: 'Received Jyotish Acharya degree from Pune Sanskrit Parishad', icon: <FiAward className="text-saffron text-2xl mx-auto" /> },
-  { year: '2011', title: 'Founded AstroVision — first online consultations', icon: <FiGlobe className="text-saffron text-2xl mx-auto" /> },
-  { year: '2015', title: 'Featured in Times of India as Top Astrologer of Maharashtra', icon: <FaTrophy className="text-saffron text-2xl mx-auto" /> },
-  { year: '2018', title: 'Completed advanced Vastu Vidya certification', icon: <FiHome className="text-saffron text-2xl mx-auto" /> },
-  { year: '2022', title: 'Crossed 50,000 satisfied clients milestone', icon: <FiUsers className="text-saffron text-2xl mx-auto" /> },
-  { year: '2024', title: 'Launched premium gemstone & spiritual products store', icon: <FaGem className="text-saffron text-2xl mx-auto" /> },
-];
 
 const renderStatIcon = (iconName) => {
   switch (iconName) {
@@ -25,9 +16,32 @@ const renderStatIcon = (iconName) => {
   }
 };
 
-const expertise = ['Vedic Astrology', 'Kundali Reading', 'Horoscope Analysis', 'Vastu Shastra', 'Numerology', 'Gemology', 'Spiritual Healing', 'Tarot Reading', 'Palmistry', 'Prashna Kundali'];
-
 export default function AboutPage() {
+  const { t } = useTranslation();
+
+  const achievements = [
+    { year: '2006', title: t('about_achievement_1'), icon: <FiBookOpen className="text-saffron text-2xl mx-auto" /> },
+    { year: '2009', title: t('about_achievement_2'), icon: <FiAward className="text-saffron text-2xl mx-auto" /> },
+    { year: '2011', title: t('about_achievement_3'), icon: <FiGlobe className="text-saffron text-2xl mx-auto" /> },
+    { year: '2015', title: t('about_achievement_4'), icon: <FaTrophy className="text-saffron text-2xl mx-auto" /> },
+    { year: '2018', title: t('about_achievement_5'), icon: <FiHome className="text-saffron text-2xl mx-auto" /> },
+    { year: '2022', title: t('about_achievement_6'), icon: <FiUsers className="text-saffron text-2xl mx-auto" /> },
+    { year: '2024', title: t('about_achievement_7'), icon: <FaGem className="text-saffron text-2xl mx-auto" /> },
+  ];
+
+  const expertise = [
+    t('about_exp_1'),
+    t('about_exp_2'),
+    t('about_exp_3'),
+    t('about_exp_4'),
+    t('about_exp_5'),
+    t('about_exp_6'),
+    t('about_exp_7'),
+    t('about_exp_8'),
+    t('about_exp_9'),
+    t('about_exp_10'),
+  ];
+
   return (
     <div className="min-h-screen bg-dawn pt-24 pb-16">
       {/* Header */}
@@ -35,7 +49,7 @@ export default function AboutPage() {
         <div className="absolute inset-0 flex items-center justify-center opacity-[0.03] text-saffron pointer-events-none">
           <FiSun className="w-64 h-64 animate-spin-slow" />
         </div>
-        <SectionTitle eyebrow="Meet the Astrologer" title="Pandit Vishal Tarte" subtitle="A beacon of cosmic wisdom, guiding thousands toward clarity, purpose and divine alignment since 2006." />
+        <SectionTitle eyebrow={t('about_eyebrow')} title={t('about_title')} subtitle={t('about_subtitle')} />
       </div>
 
       <div className="max-w-6xl mx-auto px-4">
@@ -51,19 +65,19 @@ export default function AboutPage() {
               {/* Floating card */}
               <div className="absolute -bottom-6 -right-6 bg-cream border border-slate-200/60 rounded-2xl px-5 py-4 shadow-lg">
                 <div className="font-cinzel text-saffron font-black text-2xl">18+</div>
-                <div className="text-slate/60 text-sm font-lato font-semibold">Years of Mastery</div>
+                <div className="text-slate/60 text-sm font-lato font-semibold">{t('about_years_mastery')}</div>
               </div>
             </div>
           </div>
 
           {/* Bio */}
           <div>
-            <p className="text-saffron font-lato text-sm tracking-widest uppercase mb-3 font-semibold">✦ About Vishal ji</p>
-            <h2 className="font-cinzel text-3xl font-bold text-slate mb-6">A Lifetime Devoted to<br /><span className="text-saffron">Cosmic Wisdom</span></h2>
+            <p className="text-saffron font-lato text-sm tracking-widest uppercase mb-3 font-semibold">{t('about_bio_eyebrow')}</p>
+            <h2 className="font-cinzel text-3xl font-bold text-slate mb-6">{t('about_bio_title_1')}<br /><span className="text-saffron">{t('about_bio_title_2')}</span></h2>
             <div className="space-y-4 text-slate/70 font-lato leading-relaxed mb-8">
-              <p>Born under the constellation of Rohini, Pandit Vishal Tarte showed an extraordinary affinity for astrology from childhood. Under the guidance of legendary astrologer Pandit Raghunath Shastri, he mastered the ancient Brihat Parashara Hora Shastra.</p>
-              <p>Over 18 years, he has helped more than 50,000 individuals across India and abroad navigate life's most challenging crossroads — career pivots, marriage decisions, financial troubles, and spiritual crises — with the precision of Vedic astrology.</p>
-              <p>His approach blends rigorous classical methodology with compassionate, practical guidance. Every consultation is a sacred space where ancient wisdom meets modern life.</p>
+              <p>{t('about_bio_p1')}</p>
+              <p>{t('about_bio_p2')}</p>
+              <p>{t('about_bio_p3')}</p>
             </div>
 
             {/* Expertise chips */}
@@ -74,7 +88,7 @@ export default function AboutPage() {
             </div>
 
             <Link to="/booking" className="inline-flex items-center gap-2 bg-gradient-to-r from-saffron to-gold text-slate font-cinzel font-bold px-8 py-4 rounded-full hover:shadow-xl hover:shadow-saffron/15 transition-all duration-300 hover:scale-105">
-              Book a Consultation ✦
+              {t('nav_book_consultation')} ✦
             </Link>
           </div>
         </div>
@@ -85,14 +99,14 @@ export default function AboutPage() {
             <div key={i} className="bg-cream border border-slate-200/50 rounded-2xl p-6 text-center hover:border-saffron/30 transition-all shadow-sm card-glow flex flex-col justify-center items-center">
               <div className="mb-2 filter drop-shadow-sm">{renderStatIcon(s.icon)}</div>
               <div className="font-cinzel text-3xl font-black text-saffron mb-1">{s.number}</div>
-              <div className="text-slate/60 text-sm font-lato font-medium">{s.label}</div>
+              <div className="text-slate/60 text-sm font-lato font-medium">{t('stats.' + s.label, { defaultValue: s.label })}</div>
             </div>
           ))}
         </div>
 
         {/* Timeline */}
         <div className="mb-20">
-          <SectionTitle eyebrow="Journey" title="Milestones & Achievements" />
+          <SectionTitle eyebrow={t('about_journey_eyebrow')} title={t('about_journey_title')} />
           <div className="relative">
             <div className="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-saffron/30 via-saffron/10 to-transparent hidden md:block"></div>
             <div className="space-y-8">
@@ -118,3 +132,4 @@ export default function AboutPage() {
     </div>
   );
 }
+

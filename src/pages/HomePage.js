@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { services, testimonials, stats, products } from '../data/products';
 import { SectionTitle, StarRating } from '../components/UI';
 import ProductCard from '../components/ProductCard';
@@ -49,6 +50,7 @@ const Stars = () => (
 );
 
 function HeroSection() {
+  const { t } = useTranslation();
   const [loaded, setLoaded] = useState(false);
   useEffect(() => { setTimeout(() => setLoaded(true), 100); }, []);
 
@@ -68,33 +70,33 @@ function HeroSection() {
         <div className={`transition-all duration-1000 ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
           <div className="inline-flex items-center gap-2 border border-saffron/20 bg-saffron/10 rounded-full px-4 py-2 mb-6">
             <FiSun className="text-gold text-sm animate-spin-slow" />
-            <span className="text-slate/85 text-sm font-lato tracking-widest uppercase font-semibold">Trusted by 50,000+ Souls</span>
+            <span className="text-slate/85 text-sm font-lato tracking-widest uppercase font-semibold">{t('home_trusted_by')}</span>
             <FiSun className="text-gold text-sm animate-spin-slow" />
           </div>
 
           <h1 className="font-cinzel text-5xl md:text-6xl lg:text-7xl font-black text-slate leading-tight mb-6">
-            Unlock Your<br />
+            {t('home_hero_title_1')}<br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-saffron via-gold to-saffron">
-              Cosmic Destiny
+              {t('home_hero_title_2')}
             </span>
           </h1>
 
           <p className="text-slate/75 font-lato text-lg leading-relaxed mb-8 max-w-lg">
-            Ancient Vedic wisdom, personalized for your modern journey. Expert consultations in astrology, Vastu & spiritual healing — by Pandit Vishal Tarte.
+            {t('home_hero_desc')}
           </p>
 
           <div className="flex flex-wrap gap-4 mb-10">
             <Link to="/booking" className="inline-flex items-center gap-2 bg-gradient-to-r from-saffron to-gold text-slate font-cinzel font-bold px-8 py-4 rounded-full hover:shadow-xl hover:shadow-saffron/15 transition-all duration-300 hover:scale-105 text-base">
-              Book Consultation <FiArrowRight />
+              {t('nav_book_consultation')} <FiArrowRight />
             </Link>
             <Link to="/shop" className="inline-flex items-center gap-2 border border-slate-300 text-slate font-lato font-semibold px-8 py-4 rounded-full hover:border-saffron hover:text-saffron transition-all duration-300 text-base">
-              Explore Shop <FiArrowRight />
+              {t('home_explore_shop')} <FiArrowRight />
             </Link>
           </div>
 
           {/* Mini stats */}
           <div className="flex flex-wrap gap-6">
-            {[['50K+', 'Clients'], ['18+', 'Years'], ['95%', 'Accuracy']].map(([num, label]) => (
+            {[['50K+', t('home_stat_clients')], ['18+', t('home_stat_years')], ['95%', t('home_stat_accuracy')]].map(([num, label]) => (
               <div key={label} className="text-center">
                 <div className="font-cinzel text-2xl font-bold text-saffron">{num}</div>
                 <div className="text-slate/50 text-xs font-lato font-medium">{label}</div>
@@ -123,11 +125,11 @@ function HeroSection() {
             {/* Floating badges */}
             <div className="absolute -top-4 -right-4 bg-cream border border-gold/30 rounded-2xl px-4 py-2 text-center shadow-md animate-float flex flex-col items-center">
               <FaStar className="text-gold text-base mb-1" />
-              <div className="text-slate text-xs font-bold">4.9 Stars</div>
+              <div className="text-slate text-xs font-bold">{t('home_badge_stars')}</div>
             </div>
             <div className="absolute -bottom-4 -left-4 bg-cream border border-saffron/30 rounded-2xl px-4 py-2 text-center shadow-md flex flex-col items-center" style={{ animation: 'float 6s ease-in-out 3s infinite' }}>
               <FaTrophy className="text-saffron text-base mb-1" />
-              <div className="text-slate text-xs font-bold">Award Winner</div>
+              <div className="text-slate text-xs font-bold">{t('home_badge_award')}</div>
             </div>
           </div>
         </div>
@@ -140,6 +142,7 @@ function HeroSection() {
 }
 
 function StatsSection() {
+  const { t } = useTranslation();
   return (
     <section className="py-16 bg-cream border-y border-saffron/10 relative overflow-hidden">
       <div className="absolute inset-0 bg-[url('/images/background_chakra.jpeg')] bg-center bg-cover opacity-[0.02] pointer-events-none"></div>
@@ -149,7 +152,7 @@ function StatsSection() {
             <div key={i} className="text-center group">
               <div className="mb-2 filter drop-shadow-sm">{renderStatIcon(s.icon)}</div>
               <div className="font-cinzel text-3xl md:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-saffron to-gold mb-1">{s.number}</div>
-              <div className="text-slate/60 text-sm font-lato tracking-wide uppercase font-semibold text-xs">{s.label}</div>
+              <div className="text-slate/60 text-sm font-lato tracking-wide uppercase font-semibold text-xs">{t('stats.' + s.label, { defaultValue: s.label })}</div>
             </div>
           ))}
         </div>
@@ -159,40 +162,45 @@ function StatsSection() {
 }
 
 function ServicesSection() {
+  const { t } = useTranslation();
   return (
     <section className="py-20 bg-dawn">
       <div className="max-w-7xl mx-auto px-4">
-        <SectionTitle eyebrow="What We Offer" title="Sacred Services" subtitle="Personalized Vedic consultations crafted to illuminate your life path and align you with cosmic energies." />
+        <SectionTitle eyebrow={t('home_services_eyebrow')} title={t('home_services_title')} subtitle={t('home_services_subtitle')} />
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {services.map(s => (
-            <div key={s.id} className="group relative bg-cream border border-slate-200/60 rounded-2xl overflow-hidden hover:border-saffron/40 transition-all duration-500 shadow-sm card-glow cursor-pointer flex flex-col">
-              {/* Image */}
-              <div className="relative h-48 overflow-hidden">
-                <img src={s.image} alt={s.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate/20 via-transparent to-transparent"></div>
-                <div className="absolute bottom-3 left-4">
-                  <span className="bg-cream/90 text-saffron p-2 rounded-full shadow-md text-xl flex items-center">
-                    {renderServiceIcon(s.icon)}
-                  </span>
+          {services.map(s => {
+            const serviceTitle = t(`services.${s.id}.title`, { defaultValue: s.title });
+            const serviceDesc = t(`services.${s.id}.description`, { defaultValue: s.description });
+            return (
+              <div key={s.id} className="group relative bg-cream border border-slate-200/60 rounded-2xl overflow-hidden hover:border-saffron/40 transition-all duration-500 shadow-sm card-glow cursor-pointer flex flex-col">
+                {/* Image */}
+                <div className="relative h-48 overflow-hidden">
+                  <img src={s.image} alt={serviceTitle} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate/20 via-transparent to-transparent"></div>
+                  <div className="absolute bottom-3 left-4">
+                    <span className="bg-cream/90 text-saffron p-2 rounded-full shadow-md text-xl flex items-center">
+                      {renderServiceIcon(s.icon)}
+                    </span>
+                  </div>
+                  <div className="absolute top-3 right-3 bg-saffron text-white text-xs font-bold px-2.5 py-1 rounded-full font-lato shadow-sm">{s.duration}</div>
                 </div>
-                <div className="absolute top-3 right-3 bg-saffron text-white text-xs font-bold px-2.5 py-1 rounded-full font-lato shadow-sm">{s.duration}</div>
-              </div>
-              <div className="p-5 flex flex-col flex-1">
-                <h3 className="font-cinzel text-slate font-bold text-lg mb-2 group-hover:text-saffron transition-colors">{s.title}</h3>
-                <p className="text-slate/60 text-sm leading-relaxed mb-5 flex-1">{s.description}</p>
-                <div className="flex items-center justify-between">
-                  <span className="font-cinzel text-saffron font-bold text-xl">{s.price}</span>
-                  <Link to="/booking" className="text-xs text-saffron border border-saffron/30 px-3.5 py-1.5 rounded-full hover:bg-saffron hover:text-white transition-all duration-300 font-lato font-semibold">
-                    Book Now
-                  </Link>
+                <div className="p-5 flex flex-col flex-1">
+                  <h3 className="font-cinzel text-slate font-bold text-lg mb-2 group-hover:text-saffron transition-colors">{serviceTitle}</h3>
+                  <p className="text-slate/60 text-sm leading-relaxed mb-5 flex-1">{serviceDesc}</p>
+                  <div className="flex items-center justify-between">
+                    <span className="font-cinzel text-saffron font-bold text-xl">{s.price}</span>
+                    <Link to="/booking" className="text-xs text-saffron border border-saffron/30 px-3.5 py-1.5 rounded-full hover:bg-saffron hover:text-white transition-all duration-300 font-lato font-semibold">
+                      {t('btn_book_now')}
+                    </Link>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
         <div className="text-center mt-10">
           <Link to="/services" className="inline-flex items-center gap-2 border border-saffron/40 text-saffron font-lato px-8 py-3 rounded-full hover:bg-saffron hover:text-white transition-all duration-300 font-semibold shadow-sm">
-            View All Services <FiArrowRight />
+            {t('services_title')} <FiArrowRight />
           </Link>
         </div>
       </div>
@@ -201,17 +209,18 @@ function ServicesSection() {
 }
 
 function FeaturedProducts() {
+  const { t } = useTranslation();
   const featured = products.slice(0, 6);
   return (
     <section className="py-20 bg-cream border-t border-saffron/10">
       <div className="max-w-7xl mx-auto px-4">
-        <SectionTitle eyebrow="Sacred Store" title="Cosmic Products" subtitle="Authentic gemstones, Rudraksha & spiritual items — energized and certified for maximum benefit." />
+        <SectionTitle eyebrow={t('home_shop_eyebrow')} title={t('home_shop_title')} subtitle={t('home_shop_subtitle')} />
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {featured.map(p => <ProductCard key={p.id} product={p} />)}
         </div>
         <div className="text-center mt-10">
           <Link to="/shop" className="inline-flex items-center gap-2 bg-gradient-to-r from-saffron to-gold text-slate font-cinzel font-bold px-8 py-4 rounded-full hover:shadow-xl hover:shadow-saffron/15 transition-all duration-300 hover:scale-105 justify-center">
-            Shop All Products <FiArrowRight />
+            {t('home_shop_all_products')} <FiArrowRight />
           </Link>
         </div>
       </div>
@@ -220,25 +229,31 @@ function FeaturedProducts() {
 }
 
 function TestimonialsSection() {
+  const { t } = useTranslation();
   const [active, setActive] = useState(0);
 
   useEffect(() => {
-    const t = setInterval(() => setActive(p => (p + 1) % testimonials.length), 4000);
-    return () => clearInterval(t);
+    const tTimer = setInterval(() => setActive(p => (p + 1) % testimonials.length), 4000);
+    return () => clearInterval(tTimer);
   }, []);
+
+  const activeTestimonialText = t(`testimonials.${testimonials[active].id}.text`, { defaultValue: testimonials[active].text });
+  const activeTestimonialName = t(`testimonials.${testimonials[active].id}.name`, { defaultValue: testimonials[active].name });
+  const activeTestimonialCity = t(`testimonials.${testimonials[active].id}.city`, { defaultValue: testimonials[active].city });
+  const activeTestimonialService = t(`testimonials.${testimonials[active].id}.service`, { defaultValue: testimonials[active].service });
 
   return (
     <section className="py-20 bg-dawn relative overflow-hidden">
       <div className="absolute inset-0 bg-[url('/images/background_chakra.jpeg')] bg-center bg-contain bg-no-repeat opacity-[0.015] pointer-events-none"></div>
       <div className="max-w-7xl mx-auto px-4 relative z-10">
-        <SectionTitle eyebrow="Testimonials" title="Voices of Transformation" subtitle="Real stories from souls whose lives were touched by ancient cosmic wisdom." />
+        <SectionTitle eyebrow={t('home_testimonials_eyebrow')} title={t('home_testimonials_title')} subtitle={t('home_testimonials_subtitle')} />
         
         {/* Main testimonial */}
         <div className="max-w-3xl mx-auto mb-8">
           <div className="bg-cream border border-slate-200/60 rounded-3xl p-8 text-center relative shadow-sm">
             <div className="text-saffron text-5xl font-cinzel absolute -top-4 left-8 opacity-20">"</div>
             <p className="text-slate/85 font-playfair text-lg italic leading-relaxed mb-6">
-              {testimonials[active].text}
+              {activeTestimonialText}
             </p>
             <div className="flex justify-center mb-3">
               <StarRating rating={testimonials[active].rating} />
@@ -248,8 +263,8 @@ function TestimonialsSection() {
                 {testimonials[active].avatar}
               </div>
               <div className="text-left">
-                <div className="text-slate font-bold font-lato">{testimonials[active].name}</div>
-                <div className="text-slate/50 text-sm">{testimonials[active].city} · {testimonials[active].service}</div>
+                <div className="text-slate font-bold font-lato">{activeTestimonialName}</div>
+                <div className="text-slate/50 text-sm">{activeTestimonialCity} · {activeTestimonialService}</div>
               </div>
             </div>
           </div>
@@ -267,21 +282,29 @@ function TestimonialsSection() {
 }
 
 function CTASection() {
+  const { t } = useTranslation();
   return (
     <section className="py-20 bg-cream border-t border-saffron/10 relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-br from-saffron/5 to-gold/5 pointer-events-none"></div>
       <div className="max-w-3xl mx-auto px-4 text-center relative z-10">
-        <p className="text-saffron font-lato text-sm tracking-widest uppercase mb-3 font-semibold">✦ Your Journey Awaits ✦</p>
-        <h2 className="font-cinzel text-4xl md:text-5xl font-black text-slate mb-6">Ready to Discover<br />Your Cosmic Truth?</h2>
+        <p className="text-saffron font-lato text-sm tracking-widest uppercase mb-3 font-semibold">{t('home_cta_eyebrow')}</p>
+        <h2 className="font-cinzel text-4xl md:text-5xl font-black text-slate mb-6">
+          {t('home_cta_title').split('\n').map((line, idx) => (
+            <React.Fragment key={idx}>
+              {line}
+              {idx === 0 && <br />}
+            </React.Fragment>
+          ))}
+        </h2>
         <p className="text-slate/65 font-lato text-lg mb-10 leading-relaxed max-w-2xl mx-auto">
-          One consultation can change everything. Let ancient Vedic astrology guide you to clarity, prosperity & spiritual fulfillment.
+          {t('home_cta_desc')}
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Link to="/booking" className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-saffron to-gold text-slate font-cinzel font-bold px-10 py-4 rounded-full hover:shadow-xl hover:shadow-saffron/15 transition-all duration-300 hover:scale-105 text-lg">
-            Book Now – It's Your Time <FiArrowRight />
+            {t('home_cta_btn_book')} <FiArrowRight />
           </Link>
           <a href="tel:+919876543210" className="inline-flex items-center justify-center gap-2 border border-slate-300 text-slate font-lato font-semibold px-10 py-4 rounded-full hover:border-saffron hover:text-saffron transition-all duration-300 text-lg">
-            <FiPhone /> Call Directly
+            <FiPhone /> {t('home_cta_btn_call')}
           </a>
         </div>
       </div>
@@ -301,3 +324,4 @@ export default function HomePage() {
     </div>
   );
 }
+
