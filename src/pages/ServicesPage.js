@@ -39,29 +39,52 @@ export default function ServicesPage() {
 
       <div className="max-w-7xl mx-auto px-4">
         {/* Services Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
-          {services.map(s => {
-            const serviceTitle = t(`services.${s.id}.title`, { defaultValue: s.title });
-            const serviceDesc = t(`services.${s.id}.description`, { defaultValue: s.description });
+        {/* Services Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 mb-20">
+          {services.map((s) => {
+            const serviceTitle = t(`services.${s.id}.title`, {
+              defaultValue: s.title,
+            });
+
+            const serviceDesc = t(`services.${s.id}.description`, {
+              defaultValue: s.description,
+            });
+
             return (
-              <div key={s.id} className="group bg-cream border border-slate-200/50 rounded-3xl overflow-hidden hover:border-saffron/30 transition-all duration-500 card-glow shadow-sm flex flex-col">
-                <div className="relative h-52 overflow-hidden">
-                  <img src={s.image} alt={serviceTitle} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate/20 via-transparent to-transparent"></div>
-                  <div className="absolute bottom-4 left-4 flex items-center gap-2">
-                    <span className="bg-cream/90 text-saffron p-2.5 rounded-full shadow-md text-xl">
-                      {renderServiceIcon(s.icon)}
-                    </span>
-                    <span className="bg-saffron text-white text-xs font-bold px-2.5 py-1.5 rounded-full font-lato shadow-sm">{s.duration}</span>
+              <div
+                key={s.id}
+                className="group relative bg-white/70 backdrop-blur-md border border-saffron/15 rounded-3xl p-6 transition-all duration-500 hover:-translate-y-2 hover:border-saffron/30 hover:shadow-[0_20px_60px_rgba(241,111,69,0.10)] shadow-sm"
+              >
+                {/* IMAGE */}
+                <div className="flex justify-center mb-3">
+                  <div className="relative w-40 h-40 flex items-center justify-center">
+                    <img
+                      src={s.image}
+                      alt={serviceTitle}
+                      className="w-full h-full object-contain transition-all duration-500 group-hover:scale-110"
+                    />
                   </div>
                 </div>
-                <div className="p-6 flex flex-col flex-1">
-                  <h3 className="font-cinzel text-slate font-bold text-xl mb-3 group-hover:text-saffron transition-colors">{serviceTitle}</h3>
-                  <p className="text-slate/60 font-lato text-sm leading-relaxed mb-5 flex-1">{serviceDesc}</p>
-                  <div className="flex items-center justify-between">
-                    <span className="font-cinzel text-saffron font-black text-2xl">{s.price}</span>
-                    <Link to="/booking" className="bg-gradient-to-r from-saffron to-gold text-slate font-cinzel font-bold text-sm px-5 py-2.5 rounded-full hover:shadow-lg hover:shadow-saffron/20 transition-all hover:scale-105">
-                      {t('btn_book_now')}
+
+                {/* CONTENT */}
+                <div className="text-center flex flex-col h-[160px]">
+                  <div>
+                    <h3 className="font-cinzel text-xl font-bold text-slate mb-2 group-hover:text-saffron transition-colors duration-300">
+                      {serviceTitle}
+                    </h3>
+
+                    <p className="text-slate/65 text-sm leading-relaxed line-clamp-4">
+                      {serviceDesc}
+                    </p>
+                  </div>
+
+                  {/* BUTTON */}
+                  <div className="mt-auto pt-3">
+                    <Link
+                      to="/booking"
+                      className="inline-flex items-center justify-center gap-2 w-full bg-gradient-to-r from-saffron to-gold text-white text-sm font-semibold px-5 py-3 rounded-2xl shadow-md hover:shadow-xl hover:scale-[1.02] transition-all duration-300"
+                    >
+                      {t("btn_book_now")}
                     </Link>
                   </div>
                 </div>
