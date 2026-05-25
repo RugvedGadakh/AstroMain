@@ -49,20 +49,12 @@ export default function App() {
             <Route path="/about" element={<AboutPage />} />
             <Route path="/contact" element={<ContactPage />} />
             <Route path="*" element={
-<<<<<<< HEAD
               <div className="min-h-screen bg-dawn flex items-center justify-center text-center pt-24">
-=======
-              <div className="min-h-screen bg-[#0a0404] flex items-center justify-center text-center pt-24">
->>>>>>> e19948cce804bcadb5e34f5a43e4189f5d1a03fc
                 <div>
                   <div className="text-7xl mb-6">🔮</div>
                   <h2 className="font-cinzel text-4xl text-white font-bold mb-3">Page Not Found</h2>
                   <p className="text-white/50 font-lato mb-8">The stars couldn't find this path.</p>
-<<<<<<< HEAD
                   <a href="/" className="bg-gradient-to-r from-saffron to-gold text-dawn font-cinzel font-bold px-8 py-4 rounded-full hover:shadow-xl hover:shadow-saffron/20 transition-all">Return Home</a>
-=======
-                  <a href="/" className="bg-gradient-to-r from-saffron to-gold text-black font-cinzel font-bold px-8 py-4 rounded-full hover:shadow-xl hover:shadow-saffron/30 transition-all">Return Home</a>
->>>>>>> e19948cce804bcadb5e34f5a43e4189f5d1a03fc
                 </div>
               </div>
             } />

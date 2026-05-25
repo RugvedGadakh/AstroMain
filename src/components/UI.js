@@ -1,20 +1,13 @@
 import React from 'react';
 import { useCart } from '../context/CartContext';
-<<<<<<< HEAD
 import { FaStar, FaRegStar } from 'react-icons/fa';
-=======
->>>>>>> e19948cce804bcadb5e34f5a43e4189f5d1a03fc
 
 export function ToastContainer() {
   const { toasts } = useCart();
   return (
     <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 flex flex-col gap-2 pointer-events-none">
       {toasts.map(t => (
-<<<<<<< HEAD
         <div key={t.id} className="bg-cream/95 border border-saffron/20 text-slate text-sm px-5 py-3 rounded-full shadow-xl backdrop-blur-sm animate-fade-in text-center max-w-xs">
-=======
-        <div key={t.id} className="bg-black/90 border border-saffron/40 text-white text-sm px-5 py-3 rounded-full shadow-xl backdrop-blur-sm animate-fade-in text-center max-w-xs">
->>>>>>> e19948cce804bcadb5e34f5a43e4189f5d1a03fc
           {t.msg}
         </div>
       ))}
@@ -41,7 +34,6 @@ export function WhatsAppButton() {
 export function StarRating({ rating }) {
   return (
     <div className="flex items-center gap-0.5">
-<<<<<<< HEAD
       {[1, 2, 3, 4, 5].map(i =>
         i <= Math.floor(rating) ? (
           <FaStar key={i} className="text-gold text-sm" />
@@ -49,11 +41,6 @@ export function StarRating({ rating }) {
           <FaRegStar key={i} className="text-slate/20 text-sm" />
         )
       )}
-=======
-      {[1,2,3,4,5].map(i => (
-        <span key={i} className={`text-sm ${i <= Math.floor(rating) ? 'text-gold' : 'text-white/20'}`}>★</span>
-      ))}
->>>>>>> e19948cce804bcadb5e34f5a43e4189f5d1a03fc
     </div>
   );
 }
@@ -62,21 +49,12 @@ export function LoadingSkeleton({ count = 6 }) {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
       {Array.from({ length: count }).map((_, i) => (
-<<<<<<< HEAD
         <div key={i} className="bg-cream border border-slate-200/50 rounded-2xl overflow-hidden animate-pulse">
           <div className="h-56 bg-slate-100"></div>
           <div className="p-5 space-y-3">
             <div className="h-4 bg-slate-100 rounded w-3/4"></div>
             <div className="h-3 bg-slate-100 rounded w-1/2"></div>
             <div className="h-8 bg-slate-100 rounded mt-4"></div>
-=======
-        <div key={i} className="bg-white/5 rounded-2xl overflow-hidden animate-pulse">
-          <div className="h-56 bg-white/10"></div>
-          <div className="p-5 space-y-3">
-            <div className="h-4 bg-white/10 rounded w-3/4"></div>
-            <div className="h-3 bg-white/10 rounded w-1/2"></div>
-            <div className="h-8 bg-white/10 rounded mt-4"></div>
->>>>>>> e19948cce804bcadb5e34f5a43e4189f5d1a03fc
           </div>
         </div>
       ))}
@@ -87,15 +65,9 @@ export function LoadingSkeleton({ count = 6 }) {
 export function SectionTitle({ eyebrow, title, subtitle, center = true }) {
   return (
     <div className={`mb-12 ${center ? 'text-center' : ''}`}>
-<<<<<<< HEAD
       {eyebrow && <p className="text-saffron font-lato text-sm tracking-[0.3em] uppercase mb-3 font-semibold">{eyebrow}</p>}
       <h2 className="font-cinzel text-3xl md:text-4xl font-bold text-slate mb-4">{title}</h2>
       {subtitle && <p className="text-slate/60 font-lato max-w-xl mx-auto leading-relaxed text-sm md:text-base">{subtitle}</p>}
-=======
-      {eyebrow && <p className="text-saffron font-lato text-sm tracking-[0.3em] uppercase mb-3">{eyebrow}</p>}
-      <h2 className="font-cinzel text-3xl md:text-4xl font-bold text-white mb-4 glow-text">{title}</h2>
-      {subtitle && <p className="text-white/50 font-lato max-w-xl mx-auto leading-relaxed">{subtitle}</p>}
->>>>>>> e19948cce804bcadb5e34f5a43e4189f5d1a03fc
     </div>
   );
 }
