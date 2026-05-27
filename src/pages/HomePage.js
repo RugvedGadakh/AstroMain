@@ -4,6 +4,10 @@ import { useTranslation } from 'react-i18next';
 import { services, testimonials, stats, products } from '../data/products';
 import { SectionTitle, StarRating } from '../components/UI';
 import ProductCard from '../components/ProductCard';
+import GemMarquee from '../components/GemMarquee';
+import WhatsAppBubbleCard from '../components/WhatsAppBubbleCard';
+import WhatsAppChatScreenshot from '../components/WhatsAppChatScreenshot';
+import ShareExperienceModal from '../components/ShareExperienceModal';
 import { FiUsers, FiCalendar, FiTarget, FiSun, FiArrowRight, FiPhone, FiCompass, FiHome, FiHash, FiHeart, FiLayers } from 'react-icons/fi';
 import { FaStar, FaGem, FaTrophy } from 'react-icons/fa';
 import {
@@ -300,14 +304,13 @@ function ServicesSection() {
 }
 function FeaturedProducts() {
   const { t } = useTranslation();
-  const featured = products.slice(0, 6);
   return (
     <section className="py-20 bg-cream border-t border-saffron/10">
       <div className="max-w-7xl mx-auto px-4">
         <SectionTitle eyebrow={t('home_shop_eyebrow')} title={t('home_shop_title')} subtitle={t('home_shop_subtitle')} />
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {featured.map(p => <ProductCard key={p.id} product={p} />)}
-        </div>
+      </div>
+      <GemMarquee products={products} />
+      <div className="max-w-7xl mx-auto px-4">
         <div className="text-center mt-10">
           <Link to="/shop" className="inline-flex items-center gap-2 bg-gradient-to-r from-saffron to-gold text-slate font-cinzel font-bold px-8 py-4 rounded-full hover:shadow-xl hover:shadow-saffron/15 transition-all duration-300 hover:scale-105 justify-center">
             {t('home_shop_all_products')} <FiArrowRight />
@@ -320,53 +323,128 @@ function FeaturedProducts() {
 
 function TestimonialsSection() {
   const { t } = useTranslation();
-  const [active, setActive] = useState(0);
+  const [activeTab, setActiveTab] = useState('text'); // 'text' or 'screenshot'
+  const [isTimerPaused, setIsTimerPaused] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
+  // Auto-switch tabs every 8 seconds unless manually paused
   useEffect(() => {
-    const tTimer = setInterval(() => setActive(p => (p + 1) % testimonials.length), 4000);
-    return () => clearInterval(tTimer);
-  }, []);
+    if (isTimerPaused) return;
+    const tabTimer = setInterval(() => {
+      setActiveTab(prev => (prev === 'text' ? 'screenshot' : 'text'));
+    }, 8000);
+    return () => clearInterval(tabTimer);
+  }, [isTimerPaused]);
 
-  const activeTestimonialText = t(`testimonials.${testimonials[active].id}.text`, { defaultValue: testimonials[active].text });
-  const activeTestimonialName = t(`testimonials.${testimonials[active].id}.name`, { defaultValue: testimonials[active].name });
-  const activeTestimonialCity = t(`testimonials.${testimonials[active].id}.city`, { defaultValue: testimonials[active].city });
-  const activeTestimonialService = t(`testimonials.${testimonials[active].id}.service`, { defaultValue: testimonials[active].service });
+  // Combine default testimonials with 2 extras to form a balanced 7-item staggered grid
+  const extraTestimonials = [
+    { 
+      id: 6, 
+      name: "Karan Johar", 
+      city: "Pune", 
+      rating: 5, 
+      text: "Vishal ji recommended Vastu remedies for my home study room. My concentration and peace of mind have improved so much since. Highly professional guidance.", 
+      avatar: "KJ", 
+      service: "Vastu Shastra" 
+    },
+    { 
+      id: 7, 
+      name: "Divya Teja", 
+      city: "Hyderabad", 
+      rating: 5, 
+      text: "The numerology reading by Vishal ji was extremely precise. He suggested simple name corrections that brought quick results in my startup business.", 
+      avatar: "DT", 
+      service: "Numerology Reading" 
+    }
+  ];
+
+  const allTestimonials = [...testimonials, ...extraTestimonials];
+  const row1 = allTestimonials.slice(0, 4);
+  const row2 = allTestimonials.slice(4, 7);
 
   return (
     <section className="py-20 bg-dawn relative overflow-hidden">
       <div className="absolute inset-0 bg-[url('/images/background_chakra.jpeg')] bg-center bg-contain bg-no-repeat opacity-[0.015] pointer-events-none"></div>
       <div className="max-w-7xl mx-auto px-4 relative z-10">
-        <SectionTitle eyebrow={t('home_testimonials_eyebrow')} title={t('home_testimonials_title')} subtitle={t('home_testimonials_subtitle')} />
+        <SectionTitle 
+          eyebrow={t('home_testimonials_eyebrow')} 
+          title={t('home_testimonials_title')} 
+          subtitle={t('home_testimonials_subtitle')} 
+        />
 
-        {/* Main testimonial */}
-        <div className="max-w-3xl mx-auto mb-8">
-          <div className="bg-cream border border-slate-200/60 rounded-3xl p-8 text-center relative shadow-sm">
-            <div className="text-saffron text-5xl font-cinzel absolute -top-4 left-8 opacity-20">"</div>
-            <p className="text-slate/85 font-playfair text-lg italic leading-relaxed mb-6">
-              {activeTestimonialText}
-            </p>
-            <div className="flex justify-center mb-3">
-              <StarRating rating={testimonials[active].rating} />
+        {/* Tab Controls */}
+        <div className="flex justify-center gap-4 mb-12 select-none">
+          <button
+            onClick={() => {
+              setActiveTab('text');
+              setIsTimerPaused(true);
+            }}
+            className={`px-6 py-3 rounded-full font-cinzel font-bold text-xs tracking-wider transition-all duration-300 shadow-sm ${
+              activeTab === 'text'
+                ? "bg-gradient-to-r from-saffron to-gold text-slate scale-105"
+                : "bg-white/80 border border-slate-200/50 text-slate/50 hover:text-slate hover:bg-white"
+            }`}
+          >
+            💬 Written Messages
+          </button>
+          <button
+            onClick={() => {
+              setActiveTab('screenshot');
+              setIsTimerPaused(true);
+            }}
+            className={`px-6 py-3 rounded-full font-cinzel font-bold text-xs tracking-wider transition-all duration-300 shadow-sm ${
+              activeTab === 'screenshot'
+                ? "bg-gradient-to-r from-saffron to-gold text-slate scale-105"
+                : "bg-white/80 border border-slate-200/50 text-slate/50 hover:text-slate hover:bg-white"
+            }`}
+          >
+            📱 Chat Screenshots
+          </button>
+        </div>
+
+        {/* Tab 1: Written WhatsApp-style Bubbles Staggered Grid */}
+        {activeTab === 'text' && (
+          <div className="flex flex-col gap-6 py-2 overflow-hidden">
+            {/* Row 1: 4 cards shifted slightly left on desktop */}
+            <div className="flex flex-wrap lg:flex-nowrap gap-6 justify-center lg:-translate-x-8">
+              {row1.map(tItem => (
+                <WhatsAppBubbleCard key={tItem.id} testimonial={tItem} />
+              ))}
             </div>
-            <div className="flex items-center justify-center gap-3">
-              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-saffron to-gold flex items-center justify-center font-cinzel font-bold text-white text-sm shadow-sm">
-                {testimonials[active].avatar}
-              </div>
-              <div className="text-left">
-                <div className="text-slate font-bold font-lato">{activeTestimonialName}</div>
-                <div className="text-slate/50 text-sm">{activeTestimonialCity} · {activeTestimonialService}</div>
-              </div>
+            {/* Row 2: 3 cards shifted slightly right on desktop */}
+            <div className="flex flex-wrap lg:flex-nowrap gap-6 justify-center lg:translate-x-8">
+              {row2.map(tItem => (
+                <WhatsAppBubbleCard key={tItem.id} testimonial={tItem} />
+              ))}
             </div>
           </div>
-        </div>
+        )}
 
-        {/* Dots */}
-        <div className="flex justify-center gap-2">
-          {testimonials.map((_, i) => (
-            <button key={i} onClick={() => setActive(i)} className={`rounded-full transition-all duration-300 ${i === active ? 'w-6 h-2 bg-saffron' : 'w-2 h-2 bg-slate/20 hover:bg-slate/40'}`} />
-          ))}
+        {/* Tab 2: Cropped WhatsApp Chat Screens Grid */}
+        {activeTab === 'screenshot' && (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 py-2 animate-fade-in">
+            {[0, 1, 2, 3].map(idx => (
+              <WhatsAppChatScreenshot key={idx} index={idx} />
+            ))}
+          </div>
+        )}
+
+        {/* Bottom Actions: Share Experience Trigger */}
+        <div className="text-center mt-14">
+          <button
+            onClick={() => setIsModalOpen(true)}
+            className="inline-flex items-center gap-2 bg-gradient-to-r from-saffron to-gold text-slate font-cinzel font-bold px-8 py-4 rounded-full hover:shadow-xl hover:shadow-saffron/15 transition-all duration-300 hover:scale-105"
+          >
+            📝 Share Your Experience
+          </button>
         </div>
       </div>
+
+      {/* Submission Experience Modal */}
+      <ShareExperienceModal 
+        isOpen={isModalOpen} 
+        onClose={() => setIsModalOpen(false)} 
+      />
     </section>
   );
 }
